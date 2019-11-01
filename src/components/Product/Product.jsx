@@ -1,9 +1,14 @@
 import React from 'react';
 
-const Product = () => {
+const Product = (props) => {
+    const {name, imgurl, price} = props.inventoryList
     return (
         <div>
-            Product
+            <h1>{name}</h1>
+            <div className="image-holder">
+                <img src={imgurl} alt={name}/>
+            </div>
+            <div>{price}</div>
         </div>
     );
 };
