@@ -1,12 +1,12 @@
 import React from 'react';
 
 const Product = (props) => {
-    const {name, imgurl, price} = props.inventoryList
+    const {name, img, price} = props.inventoryList
     return (
         <div>
             <h1>{name}</h1>
             <div className="image-holder">
-                <img src={imgurl} alt={name}/>
+                <img src={img} alt={name}/>
             </div>
             <div>{price}</div>
         </div>

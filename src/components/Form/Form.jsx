@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import axios from 'axios'
 
 class Form extends Component {
     constructor(props) {
@@ -6,13 +7,13 @@ class Form extends Component {
         this.state = {
             name: '',
             price: 0,
-            imgurl: ''
+            img: ''
         }
     }
-    
-    handleImage(url){
+
+    handleImage(url) {
         this.setState({
-            imgurl: url
+            img: url
         })
     }
 
@@ -28,22 +29,34 @@ class Form extends Component {
         })
     }
 
-    wipeAll(){
+    wipeAll() {
         this.setState({
             name: '',
             price: 0,
-            imgurl: ''
+            img: ''
         })
+    }
+
+    postIt(body) {
+        console.log('Posted!')
+        axios
+            .post('/api/inventory', body)
+            .then(() => {
+                this.props.componentDidMount()
+                this.wipeAll()
+            }
+            )
+
     }
 
     render() {
         return (
             <div>
-                <input type="text" onChange={e => this.handleImage(e.target.value)}/>
-                <input type="text" onChange={e => this.handleName(e.target.value)}/>
-                <input type="number" onChange={e => this.handlePrice(e.target.value)}/>
+                <input type="text" onChange={e => this.handleName(e.target.value)} />
+                <input type="number" onChange={e => this.handlePrice(e.target.value)} />
+                <input type="text" onChange={e => this.handleImage(e.target.value)} />
                 <button onClick={() => this.wipeAll()}>Cancel</button>
-                <button>Add to Inventory</button>
+                <button onClick={() => this.postIt(this.state)}>Add to Inventory</button>
             </div>
         );
     }
