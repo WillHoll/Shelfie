@@ -1,26 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
+import Dashboard from './components/Dashboard/Dashboard';
+import Header from './components/Header/Header';
+import Form from './components/Form/Form';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component () {
+  constructor(props) {
+    super(props);
+  //   this.state = {
+  //     inventory: [{imgurl: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fsmhttp-ssl-39255.nexcesscdn.net%2Fwp-content%2Fuploads%2F2015%2F06%2FExotic-Leather-Spectator.jpg&f=1&nofb=1', name: 'dem shoes bruh', price: 40}]
+  //   }
+  }
+
+  render() {
+    return (
+      <div className="App">
+        
+        
+      </div>
+    );
+  }
 }
 
 export default App;
