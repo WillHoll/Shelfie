@@ -9,9 +9,11 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      inventory: []
+      inventory: [],
+      curr: {}
     }
     this.componentDidMount = this.componentDidMount.bind(this)
+    this.editId = this.editId.bind(this)
   }
 
   componentDidMount() {
@@ -19,21 +21,27 @@ class App extends Component {
       .get('/api/inventory')
       .then(res => {
         this.setState({
-          inventory: res.data
+          inventory: res.data,
         })
       })
       .catch(err => {
         console.log(err)
       })
   }
-  
 
-  render() {
+  editId(product) {
+    this.setState({
+      curr: product
+    })
+  }
+    
+    
+    render() {
     return (
       <div className="App">
         <Header />
-        <Dashboard inventoryList={this.state.inventory}/>
-        <Form componentDidMount={this.componentDidMount}/>
+        <Dashboard componentDidMount={this.componentDidMount} inventoryList={this.state.inventory} editId={this.editId} />
+        <Form componentDidMount={this.componentDidMount} currentProp={this.state.curr} />
       </div>
     );
   }

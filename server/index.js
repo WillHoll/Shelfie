@@ -12,6 +12,8 @@ app.post('/api/inventory', ctrl.addProduct)
 
 app.delete('/api/inventory/:id', ctrl.deleteProduct)
 
+app.put('/api/inventory/:id', ctrl. updateProduct)
+
 
 massive(CONNECTION_STRING).then(databaseConnection => {
     app.set('db', databaseConnection)
