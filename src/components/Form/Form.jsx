@@ -11,18 +11,39 @@ class Form extends Component {
             currIndex: null
         }
     }
-    componentDidUpdate(prevProps, prevState) {
-        const { name, price, img, id } = this.props.currentProp
-        if (prevProps !== this.props) {
-            this.setState({
-                name: name,
-                price: price,
-                img: img,
-                currIndex: id
-            })
-        } 
+    componentDidMount() {
+        if (this.props.match.params.id) {
+            this.getProduct(this.props.match.params.id)
+        }
     }
 
+    componentDidUpdate(prevProps, prevState) {
+
+        if (this.props.loction === "/add") {
+            this.setState({
+                name: "",
+                price: 0,
+                img: "",
+                currIndex: null
+            })
+        }
+    }
+
+
+
+    getProduct(id) {
+        axios
+            .get(`api/inventory/${id}`)
+            .then(res => {
+                console.log(res)
+                this.setState({
+                    name: res.data[0].name,
+                    price: res.data[0].price,
+                    img: res.data[0].img,
+                    currIndex: +id
+                })
+            })
+    }
 
 
     handleImage(url) {
@@ -57,7 +78,7 @@ class Form extends Component {
             .then(() => {
                 this.props.componentDidMount()
                 this.wipeAll()
-                }
+            }
             )
     }
 
@@ -65,8 +86,8 @@ class Form extends Component {
         axios
             .put(`/api/inventory/:${id}`, body)
             .then(() => {
-                this.props.componentDidMount()
-                }
+                this.props.history.push('/')
+            }
             )
     }
 
@@ -78,10 +99,10 @@ class Form extends Component {
                 <input type="number" placeholder={this.state.price} onChange={e => this.handlePrice(e.target.value)} />
                 <input type="text" placeholder={this.state.img} onChange={e => this.handleImage(e.target.value)} />
                 <button onClick={() => this.wipeAll()}>Cancel</button>
-                {currIndex === undefined ?
+                {currIndex === null ?
                     <button onClick={() => this.postIt({ name, price, img })}>Add to Inventory</button>
                     :
-                    <button onClick={() => this.editProduct({ name, price, img }, currIndex)}>Save Changes</button>}
+                    <button onClick={() => this.editProduct({ name, price, img, currIndex }, currIndex)}>Save Changes</button>}
             </div>
         );
     }

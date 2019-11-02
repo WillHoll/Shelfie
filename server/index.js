@@ -7,6 +7,7 @@ app.use(express.json());
 const ctrl = require('./controller');
 
 app.get('/api/inventory', ctrl.getAll)
+app.get('/api/inventory/:id', ctrl.getOne)
 
 app.post('/api/inventory', ctrl.addProduct)
 
